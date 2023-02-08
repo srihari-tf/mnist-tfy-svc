@@ -1,0 +1,10 @@
+fastapi
+prometheus_client
+uvicorn
+Pillow
+numpy
+scikit-image
+tensorflow
+python-multipart
+mlfoundry
+servicefoundry

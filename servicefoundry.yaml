@@ -1,0 +1,28 @@
+env:
+  TFY_HOST: https://app.truefoundry.com
+  TFY_API_KEY: tfy-secret://truefoundry:tfy-secrets:API_KEY
+  MODEL_VERSION_FQN: model:truefoundry/user-truefoundry/mnist-keras/mnist-classifier:2
+name: mnist-service-v1
+type: service
+image:
+  type: build
+  build_spec:
+    type: tfy-python-buildpack
+    command: uvicorn main:app --port 8000 --host 0.0.0.0
+    python_version: '3.7'
+    requirements_path: requirements.txt
+    build_context_path: ./
+  build_source:
+    type: local
+ports:
+    port: 8000
+    expose: true
+    protocol: TCP
+replicas: 1
+resources:
+  cpu_limit: 0.5
+  cpu_request: 0.2
+  memory_limit: 500
+  memory_request: 200
+  ephemeral_storage_limit: 2000
+  ephemeral_storage_request: 1000
