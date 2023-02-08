@@ -1,0 +1,21 @@
+name: sfy deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploying ${{ github.ref }} to servicefoundry"
+      - name: Install servicefoundry
+        run: pip install servicefoundry
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Generate servicefoundry-patched.yaml
+        run: sfy patch --file servicefoundry.yaml --filter='.image.build_source.ref = "${{ github.sha }}"' --output-file servicefoundry-patched.yaml
+      - name: Deploy
+        run: sfy deploy --workspace-fqn tfy-devtest-euwe1:truefoundry --file servicefoundry-patched.yaml
+        env:
+          TFY_API_KEY: ${{ secrets.TFY_API_KEY }}
+          TFY_HOST: https://app.truefoundry.com
