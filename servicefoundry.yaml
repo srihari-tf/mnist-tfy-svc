@@ -1,6 +1,6 @@
 env:
   TFY_HOST: https://app.truefoundry.com
-  TFY_API_KEY: tfy-secret://truefoundry:tfy-secrets:API_KEY
+  TFY_API_KEY: djE6dHJ1ZWZvdW5kcnk6dXNlci10cnVlZm91bmRyeTphZTJkYmE=
   MODEL_VERSION_FQN: model:truefoundry/user-truefoundry/mnist-keras/mnist-classifier:2
 name: mnist-service-v1
 type: service
@@ -15,7 +15,7 @@ image:
   build_source:
     type: local
 ports:
-    port: 8000
+  - port: 8000
     expose: true
     protocol: TCP
 replicas: 1
